@@ -25,7 +25,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
     puzzle.cpp \
-    mainwindow.cpp \
     renderarea.cpp \
     cursor.cpp \
     board.cpp \
@@ -33,7 +32,6 @@ SOURCES += main.cpp\
 
 HEADERS  += \
     puzzle.h \
-    mainwindow.h \
     renderarea.h \
     cursor.h \
     board.h \
