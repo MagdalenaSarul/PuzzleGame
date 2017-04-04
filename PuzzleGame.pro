@@ -24,8 +24,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+    puzzle.cpp \
+    mainwindow.cpp \
+    renderarea.cpp \
+    cursor.cpp \
+    board.cpp \
+    controlpanel.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += \
+    puzzle.h \
+    mainwindow.h \
+    renderarea.h \
+    cursor.h \
+    board.h \
+    controlpanel.h
 
 FORMS    += mainwindow.ui

@@ -1,34 +1,73 @@
-#include "mainwindow.h"
+//#include "mainwindow.h"
 #include <QApplication>
 #include <QHBoxLayout>
-#include <QPushButton>
-#include <QLabel>
-#include <QLineEdit>
+
 #include <QGridLayout>
+#include <QPainter>
+#include <QGraphicsScene>
+//#include <QGraphicsRectItem>
+#include <QGraphicsView>
+#include <QGroupBox>
+#include "cursor.h"
+#include "puzzle.h"
+#include "board.h"
+#include "controlpanel.h"
+#include <QRect>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
     QApplication game(argc, argv);
+    QWidget *mainBoard = new QWidget;
+    Board *boardForPuzzles = new Board();
+    ControlPanel *controlPanel = new ControlPanel();
+    Puzzle *puzzles = new Puzzle();
+
+    QGraphicsView *view = new QGraphicsView();
+    QHBoxLayout *hLayout = new QHBoxLayout;
+    QGridLayout *vLayout = new QGridLayout();
+
+    boardForPuzzles->setSideLength(100);
+    boardForPuzzles->setNumOfPuzzles(controlPanel->numOfPuzzles());
+    view->setScene(boardForPuzzles->init());
+
+    QObject::connect(controlPanel->shuffleBtn, SIGNAL(clicked()), &game, SLOT(quit()));
+
+    hLayout->addWidget(controlPanel->numOfN);
+    hLayout->addWidget(controlPanel->numOfNEdit);
+    hLayout->addWidget(controlPanel->shuffleBtn);
+    hLayout->addWidget(controlPanel->resetBtn);
+
+    vLayout->addWidget(view, 0, 0, Qt::AlignLeft);
+    vLayout->addLayout(hLayout, 1, 0, Qt::AlignHCenter);
+
+    mainBoard->setLayout(vLayout);
+    mainBoard->show();
+
+    return game.exec();
+
     //MainWindow board;
 
     //board.setWindowTitle("Puzzle Game");
-    QWidget *board = new QWidget;
-    QLabel *numOfN = new QLabel("n=");
-    QLineEdit *numOfNEdit = new QLineEdit("3");
+
+    //QGraphicsScene *scene = new QGraphicsScene();
+    //Cursor *rect = new Cursor();
+    //scene->addItem(rect);
+   // QRect newRect(100,200,200,300);
+
+
+
+    //rect->setFlag(QGraphicsItem::ItemIsFocusable);
+    //rect->setFocus();
+
+    //QGraphicsView *view = new QGraphicsView();
+   // view->setScene(scene);
+    //view->show();
+
+
+    /*enum { NumGridRows = 3, NumGridColumns = 3 };
+    QGridLayout *grid = new QGridLayout;
+    grid->addWidget(view);*/
+
     //numOfNEdit->setText("3");
-    QPushButton *shuffleBtn = new QPushButton("Shuffle");
-    QPushButton *resetBtn = new QPushButton("Reset");
-
-    QObject::connect(shuffleBtn, SIGNAL(clicked()), board, SLOT(quit()));
-
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->addWidget(numOfN);
-    layout->addWidget(numOfNEdit);
-    layout->addWidget(shuffleBtn);
-    layout->addWidget(resetBtn);
-
-    board->setLayout(layout);
-    board->show();
-
-    return game.exec();
 }
